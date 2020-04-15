@@ -1,0 +1,269 @@
+USE [master]
+GO
+/****** Object:  Database [GenericCrudDemoDB]    Script Date: 11/29/2019 11:49:36 AM ******/
+CREATE DATABASE [GenericCrudDemoDB]
+ CONTAINMENT = NONE
+ ON  PRIMARY 
+( NAME = N'GenericCrudDemoDB', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\GenericCrudDemoDB.mdf' , SIZE = 8192KB , MAXSIZE = UNLIMITED, FILEGROWTH = 65536KB )
+ LOG ON 
+( NAME = N'GenericCrudDemoDB_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL13.MSSQLSERVER\MSSQL\DATA\GenericCrudDemoDB_log.ldf' , SIZE = 8192KB , MAXSIZE = 2048GB , FILEGROWTH = 65536KB )
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET COMPATIBILITY_LEVEL = 130
+GO
+IF (1 = FULLTEXTSERVICEPROPERTY('IsFullTextInstalled'))
+begin
+EXEC [GenericCrudDemoDB].[dbo].[sp_fulltext_database] @action = 'enable'
+end
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET ANSI_NULL_DEFAULT OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET ANSI_NULLS OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET ANSI_PADDING OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET ANSI_WARNINGS OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET ARITHABORT OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET AUTO_CLOSE OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET AUTO_SHRINK OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET AUTO_UPDATE_STATISTICS ON 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET CURSOR_CLOSE_ON_COMMIT OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET CURSOR_DEFAULT  GLOBAL 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET CONCAT_NULL_YIELDS_NULL OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET NUMERIC_ROUNDABORT OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET QUOTED_IDENTIFIER OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET RECURSIVE_TRIGGERS OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET  DISABLE_BROKER 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET AUTO_UPDATE_STATISTICS_ASYNC OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET DATE_CORRELATION_OPTIMIZATION OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET TRUSTWORTHY OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET ALLOW_SNAPSHOT_ISOLATION OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET PARAMETERIZATION SIMPLE 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET READ_COMMITTED_SNAPSHOT OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET HONOR_BROKER_PRIORITY OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET RECOVERY FULL 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET  MULTI_USER 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET PAGE_VERIFY CHECKSUM  
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET DB_CHAINING OFF 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET FILESTREAM( NON_TRANSACTED_ACCESS = OFF ) 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET TARGET_RECOVERY_TIME = 60 SECONDS 
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET DELAYED_DURABILITY = DISABLED 
+GO
+EXEC sys.sp_db_vardecimal_storage_format N'GenericCrudDemoDB', N'ON'
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET QUERY_STORE = OFF
+GO
+USE [GenericCrudDemoDB]
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET LEGACY_CARDINALITY_ESTIMATION = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET LEGACY_CARDINALITY_ESTIMATION = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET MAXDOP = 0;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET MAXDOP = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET PARAMETER_SNIFFING = ON;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET PARAMETER_SNIFFING = PRIMARY;
+GO
+ALTER DATABASE SCOPED CONFIGURATION SET QUERY_OPTIMIZER_HOTFIXES = OFF;
+GO
+ALTER DATABASE SCOPED CONFIGURATION FOR SECONDARY SET QUERY_OPTIMIZER_HOTFIXES = PRIMARY;
+GO
+USE [GenericCrudDemoDB]
+GO
+/****** Object:  Table [dbo].[tbl_contacts]    Script Date: 11/29/2019 11:49:36 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_contacts](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[name] [varchar](50) NULL,
+	[email] [varchar](50) NULL,
+	[phone] [varchar](50) NULL,
+	[url] [varchar](50) NULL,
+	[notes] [text] NULL,
+ CONSTRAINT [PK_tbl_contacts] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_employees]    Script Date: 11/29/2019 11:49:37 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_employees](
+	[id] [int] IDENTITY(1,1) NOT NULL,
+	[FirstName] [nvarchar](50) NULL,
+	[LastName] [nvarchar](50) NULL,
+	[Designation] [nvarchar](50) NULL,
+ CONSTRAINT [PK_tbl_employees] PRIMARY KEY CLUSTERED 
+(
+	[id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tbl_products]    Script Date: 11/29/2019 11:49:37 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tbl_products](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [varchar](20) NULL,
+	[Category] [varchar](20) NULL,
+	[Price] [decimal](10, 2) NULL,
+ CONSTRAINT [PK_tbl_products] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+GO
+/****** Object:  Table [dbo].[tblBook]    Script Date: 11/29/2019 11:49:37 AM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[tblBook](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](100) NOT NULL,
+	[AuthorName] [nvarchar](50) NOT NULL,
+	[PublisherName] [nvarchar](50) NULL,
+	[Price] [decimal](8, 2) NULL,
+	[Discount] [decimal](8, 2) NULL,
+	[Rating] [int] NULL,
+	[Language] [nvarchar](50) NULL,
+	[PublicationYear] [int] NULL,
+	[ISBN13] [nvarchar](50) NULL,
+	[ISBN10] [nvarchar](50) NULL,
+	[Category] [nvarchar](50) NULL,
+	[Image] [nvarchar](200) NULL,
+	[Details] [nvarchar](max) NULL,
+ CONSTRAINT [PK_tblBook] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+GO
+SET IDENTITY_INSERT [dbo].[tbl_contacts] ON 
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (1, N'john robinsonaaa', N'Aolxxx', N'555-555-5555sdg', N'url fiield', N'Live and Let Die')
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (2, N'john smith', N'Hoaaaaa', N'rotary dial zzzz', N'xfdhsdfssss', N'Have a Nice Day.ddddd')
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (3, N'joe smithFFFFF', N'Hotmailssss', N'landlinessssswwww', N'dgadsga', N'Easy Come, Easy Go')
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (4, N'john robinson', N'jill@aol.com', N'555-555-5555', N'asdggsssss', N'sadfadfh')
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (6, N'xccx', N'ddgs4444', N'sgd', N'sd', NULL)
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (7, N'Heue', N'Sne', N'333', N'Sbe', N'Snene')
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (8, N'ZcZV', N'vXZ', N'1123', N'dssd', N'dgsa')
+GO
+INSERT [dbo].[tbl_contacts] ([id], [name], [email], [phone], [url], [notes]) VALUES (9, N'sdgds', N'eyr', N'233', N'yr', N'rtrt')
+GO
+SET IDENTITY_INSERT [dbo].[tbl_contacts] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tbl_employees] ON 
+GO
+INSERT [dbo].[tbl_employees] ([id], [FirstName], [LastName], [Designation]) VALUES (1, N'xyz', N'bob jj', NULL)
+GO
+INSERT [dbo].[tbl_employees] ([id], [FirstName], [LastName], [Designation]) VALUES (2, N'xyz', N'bob jj', NULL)
+GO
+INSERT [dbo].[tbl_employees] ([id], [FirstName], [LastName], [Designation]) VALUES (3, N'eeedryery', N'eeereye', N'eeee')
+GO
+INSERT [dbo].[tbl_employees] ([id], [FirstName], [LastName], [Designation]) VALUES (4, N'334', N'Rrrddddddddd', N'Errors ')
+GO
+INSERT [dbo].[tbl_employees] ([id], [FirstName], [LastName], [Designation]) VALUES (5, N'xyz', N'bob jj', NULL)
+GO
+INSERT [dbo].[tbl_employees] ([id], [FirstName], [LastName], [Designation]) VALUES (6, N'eryry', N'yer', N'eyrrey')
+GO
+SET IDENTITY_INSERT [dbo].[tbl_employees] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tbl_products] ON 
+GO
+INSERT [dbo].[tbl_products] ([Id], [Name], [Category], [Price]) VALUES (1, N'adserye', N'asdgaaaaeryer', CAST(3.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbl_products] ([Id], [Name], [Category], [Price]) VALUES (2, N'dsa', N'asdgssssssss', CAST(55.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbl_products] ([Id], [Name], [Category], [Price]) VALUES (3, N'Yy', N'Gg4ccccc', CAST(6.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbl_products] ([Id], [Name], [Category], [Price]) VALUES (4, N'xcbcx', N'bxc', CAST(33.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbl_products] ([Id], [Name], [Category], [Price]) VALUES (5, N'ggf', N'dfjgf', CAST(3.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbl_products] ([Id], [Name], [Category], [Price]) VALUES (6, N'ewte', N'weey', CAST(333.00 AS Decimal(10, 2)))
+GO
+INSERT [dbo].[tbl_products] ([Id], [Name], [Category], [Price]) VALUES (7, N'ewte', N'weey', CAST(33344.00 AS Decimal(10, 2)))
+GO
+SET IDENTITY_INSERT [dbo].[tbl_products] OFF
+GO
+SET IDENTITY_INSERT [dbo].[tblBook] ON 
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (1, N'Oliver''s Storyaa', N'Erich Segal', N'sssss', CAST(987.00 AS Decimal(8, 2)), CAST(0.00 AS Decimal(8, 2)), 2, N'English', 2013, N'9780143417699', N'014341769X', N'THRILLER', N'someone-like-you-400x400-imadht2fay9nmfuf.jpeg', N'Someone Like You is a story about friendship, love, and betrayal, featuring the lives of five individuals as they face the trials and tribulations of growing up and heading off to college. Niharika Singh is the protagonist of Someone Like You. She is a normal girl with whom many young women can identify with. Shy, having low self esteem, and lacking confidence, Niharika feels nonexistent and ugly, until the day her sister Simran gives her a makeover. This transforms Niharika, and helps her realize that she is a beautiful, young woman after all. She soon decides to attend college in a new city. Niharika’s adventure truly begins when she befriends three boys, Karthik, Akshat, and Tanmay. Of the three, Tanmay becomes her best friend, Akshat remains out of bounds, because he is her sister’s ex-boyfriend, and Karthik remains a mystery, for whom Niharika has conflicted feelings. But later, Niharika discovers that his aggressiveness is simply a blanket to hide his past. She also goes on to make friends with Pia, who is also her roommate. Things start to spice up when Tanmay develops an interest for Pia. Pia begins reciprocating the same, but she is also involved in a long distance relationship with another boy named Vishal. Niharika and Akshat also begin to question their feelings for each other, adding more spice to the saga.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (2, N'ewtew', N'Preeti Shenoy', N'Westland Ardalis', CAST(20.00 AS Decimal(8, 2)), CAST(0.42 AS Decimal(8, 2)), 3, N'English', 2012, N'9789382618188', N'938261818X', N'CLASSICS', N'the-secret-wish-list-400x400-imadkuygztrkfhpz.jpeg', N'Published in 2012, The Secret Wishlist is a poignant novel about friendship, relationships and following one’s heart in order to find inner happiness. The Secret Wish List is a riveting story about the protagonist Diksha, who at the tender age of 16 lives the life of a typical carefree teenager. She juggles school work and fun, amidst schoolgirl crushes on boys including Ankit, and gossip and girl talk with her best friend. However, one day, an innocent crush explodes into a chain of irreversible events that result in changing her life forever. 18 years later, Diksha, the feisty, fun loving teenager, has been replaced by a very different version of her younger self. Now, at the age of 35, she is a jaded and bored housewife beneath the facade of a happily married woman. Married at 19 to Sandeep, a successful professional, and mother to a bright young boy, she is an unhappy woman who is dissatisfied in her loveless marriage and trapped in a domestic setting she no longer feels connected to. When an unfortunate incident involving her cousin’s husband takes place, it brings all her unmet hopes and desires to the fore, opening up possibilities Diksha never felt she would find again. Stemming from a desire to fulfill her hopes and dreams, a secret wish list is born. It urges Diksha to following her heart and explore the possibilities of unrequited love that she denied herself for so many years. The Secret Wish List is a sensitive account of a woman’s soul searching and attempts at self discovery in order to find true happiness. Its intriguing storyline tackles the moral dilemma and temptations of an extramarital affair, the elusive nature of true love and whether it really does exist, the fragility of friendship and relationships, and the significance of one’s dreams.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (3, N'hellooaaaa', N'ccccddddd', N'another tester', CAST(9.99 AS Decimal(8, 2)), CAST(0.42 AS Decimal(8, 2)), 3, N'English', 2012, N'9780143419648', N'0143419641', N'CLASSICS', N'love-stories-that-touched-my-heart-400x400-imadjvruag5rzgxn.jpeg', N'Weve all experienced the first flush of love and remember the lingering fragrance of it. For ages Love has remained one of the most cherished experiences that everyone wishes to live through at least once. Humanity, time and again, has coined many definitions to describe this beautiful emotion, but this small word is a feeling that cant simply be defined. It has to be narrated . . . in the form of stories love stories. Love Stories That Touched My Heart is a collection of such stories from readers who have a tale to tell, shortlisted from over 2000 entries that were submitted in a competition conducted by Penguin India.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (4, N'test bookaaaa', N'bob ssssaaaasssssssss', N'swewet', CAST(3.00 AS Decimal(8, 2)), CAST(0.42 AS Decimal(8, 2)), 3, N'English', 2012, N'9780143417231', N'0143417231', N'FANTASY', N'can-love-happen-twice-400x400-imadarucay5gxr5g.jpeg', N'test book ')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (5, N'Uff Ye Emotions: A Collection of Award Winning Love Stories ', N'Vinit K. Bansal ggg', N'gsssssfffff', CAST(130.00 AS Decimal(8, 2)), CAST(0.42 AS Decimal(8, 2)), 2, N'English', 2013, N'9789350880388', N'9350880385', N'MYSTERY', N'uff-ye-emotions-a-collection-of-award-winning-love-stories-400x400-imadhesu5scdsekz.jpeg', N'Perhaps, emotions are the most beautiful things in the world which cannot be seen or even touched. Interestingly, they can only be felt with the heart. Love is the purest and primary among them with its various shades. We all have our own definitions of this magical word, but, its beyond explanation. It is always around us. The very existence of this beautiful universe is founded on love only. Love has been the most talked about subject since ages and has always come to us through stories and became a part of us. Almost each of us has experienced the magic of this emotion in one form or other in our lives. Uff Ye Emotions is trying to recapture the magic of love through 12 beautiful award winning stories which were selected after a nation-wide contest. Stories in this anthology are soaked with intense emotions: Adoration, affection, love, friendship, fondness, attraction, caring, compassion, sentimentality, desire, lust, passion, longing, infatuation, envy, jealousy etc. which truly complete our lives. Love stories from diverse age groups, from different corners of the country and containing different shades of love.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (6, N'Oliver''s Story ', N'Erich Segalmm', N'Hodder & Stoughtonjj', CAST(299.00 AS Decimal(8, 2)), CAST(0.30 AS Decimal(8, 2)), 4, N'English', 2013, N'9781444768404', N'1444768409', N'CLASSICS', N'oliver-s-story-it-takes-someone-very-special-to-forget-the-love-of-your-life-400x400-imadh6vgwb2z45ht.jpeg', N'Oliver''s Story ')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (7, N'Love Endeavors', N'Vikram Sethiccnv', N'eeeee', CAST(255.00 AS Decimal(8, 2)), CAST(0.05 AS Decimal(8, 2)), 5, N'English', 2013, N'9789382447276', N'938244727Xxx', N'FANTASY', N'love-endeavors-400x400-imadhepbzwdzvsch.jpeg', N'Kavi and Sara are madly in love with each other, getting delighted to a ravishing degree! But something goes terribly wrong, splitting them up as hell with a no hope of rescue! Then, suddenly after 2 years of killing separation. Once again, Destiny makes them face each other circumstantially, giving away a golden chance to revive their relationship! What''s gonna happen? Would love endeavor to spill its spunk over them? Would love endeavor to cast its magical spell over them, to revive their relationship, to unite them once again? Love is regarded as the God and vice-versa. But always the barrier of Astrology, Religion, Society claimed themselves bigger than the elysian ''love'' and always caused impediments, putting the shackles of ''Terms & Condition'' in the path of Lovers for prolonged centuries!!! But Out of egoism, they always forget, love knows no conditions! Its the unconditional and unbounded ocean of perpetual bliss! Unwrap the ''Torrid Love Affair'' of ''Astrologically Incompatible Couple, struggling against the destiny! An eternal love story, trapped in the clutches of astrology and religion, uncovering how their ghastly destiny enforce them to split up pathetically, landing them into heartrending ''state of affairs'' besides phenomenal love amid them. One after another obstruction mops up their life cataclysmically, eventually dragging them into a woeful plight!!!But every dark night comes with a resplendent dawn! For every dark night, there''s a brighter day! While facing the glooming challenges, we often do forget that Sun is always shining above the clouds... And as it appears, our life becomes shining like the gold! Similarly, The sun of ''Cosmic Grace'' manifests enigmatically,transforming their lives miraculously just in a jiffy and give them the quickest redemption from their sinister, cursed and wretched life like never heard, like never seen before!!! An erotically romantic, spine-tingling, bewitchingly captivating, most redolent and perhaps the most randiest ''Love Story'' of an everlasting season called ''Love! The real life love story with a perfect blend of spiritualism, visualizing the love, love & love as the one and only eternal religion!!! Which actually endeavors to bloom our lives like the paradise... And capable to erase the deep-rooted, set of past bad karmas, which are indeed the major cause of our present sufferings!')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (8, N'The Third Bullet aaaaa', N'Stephen Hunteraa vvvxxxx', N'Simon & Schuster', CAST(699.00 AS Decimal(8, 2)), CAST(0.40 AS Decimal(8, 2)), 1, N'English', 2013, N'9781451640205', N'145164020Xss', N'MYSTERY', N'the-third-bullet-400x400-imadzrf6vedwtpj9.jpeg', N'In The Third Bullet, the protagonist, Bob Lee Swagger, tries to find out why the third bullet, which was instrumental in the assassination of the former American President, John F. Kennedy, exploded. Many investigators and authors who followed the case remain clueless about the third bullet. The book has its roots in the first novel that the author wrote, Point Of Impact. Through the book, the author aims to expose the mastermind behind the explosion of the third bullet that killed the President. In the beginning of the book, an author, who is investigating the assassination is run down by a car. His wife, convinced that it was not an accident but a murder, approaches Bob Lee Swagger for help in the investigation. He sets out to explore several unanswered questions relating to the assassination. The points that puzzle him are the explosion of the third bullet and why Lee Oswald headed back to his place to retrieve the pistol instead of carrying it with him. Swagger also tries to understand how the assassination was planned before the route that the ex-President was going to take was announced. The Third Bullet takes an interesting turn when CIA operative, Hugh Meachum, comes into the scene with secrets that nobody knows of. But, he is unwilling to reveal them for various reasons. As they travel across the world in search of the answers, the actual story behind the mystery slowly unravels.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (9, N'The Hit', N'David Baldacci', N'Pan Macmillan', CAST(550.00 AS Decimal(8, 2)), CAST(0.50 AS Decimal(8, 2)), 5, N'English', 2013, N'9781447229902', N'1447229908', N'THRILLER', N'the-hit-400x400-imadku9feqx8zkjz.jpeg', N'The Hit, published in 2013, has a thrilling plot. The protagonist, Will Robie, is an American Government employed assassin. His job is to kill the worst possible enemies of the nation, thereby saving thousands of lives. This hitman has now been given a new assignment, where he has to kill Jessica Reel, his former colleague. She too is as good a killer as Robie, but she suddenly seems to have turned rogue. Her targets are members of the intelligence agency that she was once a part off. Reel leaves behind a trail of death wherever she goes. The Hit focuses on how Robie is sent on this mission to eliminate Reel, as only a killer can catch another killer. This master assassin is told to set a trap, but the rogue agent is tough and highly skilled. Robie pursues his former colleague, and as the plot unveils itself, readers learn that maybe Reels betrayal holds the key to some dark secrets that would shock the globe. The author has beautifully captured the paranoia and loneliness that agents in this line of work go through. The Hit is a fast paced and pulse pounding novel. It weaves into its storyline many factors, such as trust, betrayal, paranoia, and more. The Hit is an exciting, action packed, with surprises. The book was published in 2013 and was Number 1 on the New York Times Best-Sellers list.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (10, N'A Degree in Death', N'Ruby Gupta aaaa', N'Alchemy Publishers', CAST(225.00 AS Decimal(8, 2)), CAST(0.29 AS Decimal(8, 2)), 4, N'English', 2012, N'9788180460845', N'8180460843', N'THRILLER', N'a-degree-in-death-400x400-imadfw74gfzsbbng.jpeg', N'The midnight murder of a student in the sleepy town of Dehradun rouses everyone with suspicion and alarm. Violence is incomprehensible in this institute located at the foothills of the Himalayas. With no clues or suspects, the police are unable to catch the killer. Professor Shantanu Bose, an eminent nano-expert and Dean of Research and Development, is deeply troubled at this havoc caused to his institute. Determined to bring back the peaceful academic environment of the campus, he begins his own investigation. Fear mounts as more bodies are discovered one after the other. Soon the professor finds himself in grave danger. as he realizes he is being stalked and his every move is being observed. Yet. he persists with his enquiry and discovers that the truth is more startling than what anyone could have imagined. ')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (11, N'The Edge of the Machete', N'Abhisar Sharmaaa', N'Westland', CAST(250.00 AS Decimal(8, 2)), CAST(0.32 AS Decimal(8, 2)), 4, N'English', 2012, N'9789381626672', N'9381626677', N'ROMANCE', N'the-edge-of-the-machete-400x400-imadd2ekeqhgatcs.jpeg', N'To eliminate Jasons killer, Gomez has to infiltrate a conglomeration of the most ferocious terror outfits in The Beast as Sarfaraz Khan. But as the boundaries between Gomez and Sarfaraz blur, the CIA agent must not only plunge headlong into the battle in the Khyber, but also wage a war within. Simultaneously, Indian journalist Rahul Sharma, kidnapped and held hostage within The Beast, must find a way back to the woman he loves. And British white Muslim, Shaun Marsh aka Shahid Khan, sucked into the gathering at the Khyber, must learn to exorcise the ghosts of the past. Most of all, all three must try to escape the edge of Aamir Sherzais machete. Will they get away unscathed? Or meet a fate similar to Jasons? Find out in this captivating thriller! ')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (12, N'The Krishna Keywwww', N'Ashwin Sanghiaaa', N'Westland', CAST(250.00 AS Decimal(8, 2)), CAST(0.50 AS Decimal(8, 2)), 4, N'English', 2012, N'9789381626689', N'9381626685', N'THRILLER', N'the-krishna-key-400x400-imadayvmeqfbbwyg.jpeg', N'The Krishna Key revolves around a powerful legacy left behind by Krishna. This legacy is wanted by a large number of people, most of whom are even willing to kill for it. The book focusses on a professor, the main character, who has to beat the cops and others in the quest for this legacy and ensure that it is not misused. Professor Ravi Mohan Saini specializes in mythology and its hidden symbols and secrets. One of his friends, a symbologist named Anil Varshney, tells him of The Krishna Key, a collection of sacred and powerful objects that if put together, could have some astounding results. Anil Varshney is murdered and that starts the professor’s quest in earnest. A series of gruesome murders take place. The character, Taarak Vakil, thinks he is the next avatar of Vishnu, Kalki. Fully convinced that he is Kalki, Vakil is after Krishna''s descendants in order to retrieve The Krishna Key. Krishna’s Yadava clan currently has four branches. These are the Varshney, the Saini, the Chhedi, and the Satvat branches. Taarak is after each branch of the ancient Yadava lineage. He thinks he will find the pieces of the puzzle with each one of them. He decides to locate the persons holding each of the pieces, get it and then kill them. He suffers from no remorse for the murders, for he thinks he is God. Ravi Saini now has to get the powerful legacy of Krishna before Vakil, and stop his murderous plans.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (13, N'The Taj Conspiracy', N'Manreet Sodhi Someshwar', N'Westland And Tranquebar Press', CAST(250.00 AS Decimal(8, 2)), CAST(0.50 AS Decimal(8, 2)), 4, N'English', 2012, N'9789381626139', N'9381626139', N'THRILLER', N'the-taj-conspiracy-400x400-imad8makhs7eznhz.jpeg', N'Mughal scholar Mehrunisa Khosa stumbles on a conspiracy to destroy the Taj Mahal when she discovers the murder of the Taj supervisor, and the Quranic calligraph on the tomb of Queen Mumtaz altered to suggest a Hindu origin of the Taj Mahal. That urban legend had always existed. Now, though, someone was conspiring to make it come true. In the case of the famed marble monument, all was not on the surface. A vast labyrinth ran underneath closed to visitors where Mehrunisa was trapped once. In a series of suspenseful twists and turns, the action traverses from the serene splendour of Taj Mahal to the virulent warrens of Taj Ganj, from intrigue laden corridors of Delhi to snowy Himalayan hideouts. As a right wing Hindu party ratchets up its communal agenda and Islamic militants plot a terror attack, in the dark corners of his devious mind a behrupiya, a shape shifter, is conniving to divide the nation in two. To save the Taj Mahal, Mehrunisa must overcome a prejudiced police and battle her inner demons as she sifts the multiple strands that lead to the conspirator.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (14, N'Malgudi Days', N'R. K. Narayanan ccccc', N'Indian Thought Publications', CAST(125.00 AS Decimal(8, 2)), CAST(0.36 AS Decimal(8, 2)), 5, N'English', 2011, N'9788185986173', N'8185986177', N'CLASSICS', N'malgudi-days-400x400-imadat2auzypym2e.jpeg', N'Malgudi Days is a novel that revolves around the happenings in a small fictional village named Malgudi, which is located on the banks of the river Sarayu in South India. This book is a collection of 32 short stories that are highly amusing. The remarkable feature of the stories present in this book is that they are all centered around the lives of mere commoners as they go about their daily routine. The stories present in this book mostly revolve around the relationships among family members as well as the social taboos in the mid-nineties. Through the course of this book, readers are introduced to a ten-year-old lad named Swaminathan, and his two closest friends, Mani and Rajam, whose fun-filled exploits provide a great deal of entertainment to the readers. In another story in this book, Chandran, whose apprehensions about life and issues related to love provide for an interesting read. One of the stories in this book entitled The English Teacher, revolves around incidents in the life of Jagan, and his son Mali. Along with providing the readers with an interesting story, the author also highlights the problem of the generation gap between parents and children. While some of the stories may keep the readers in splits of laughter, certain stories may actually cause the reader to cry, as they establish a connection between themselves and the reader. The stories present in Malgudi Days are highly thought-provoking, and make for a good read for individuals of all age groups. Malgudi Days was published for the first time in the year 1943 by Indian Thought Publications. Put together with a great deal of humor and grace, this classic piece of literature by R. K. Narayan is widely appreciated by its readers to this day. This novel, Malgudi Days, was also adapted into a television series that was aired in the year 1986, by Shankar Nag.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (15, N'To Kill a Mockingbird', N'Harper Lee twyereeee', N'Random House', CAST(299.00 AS Decimal(8, 2)), CAST(0.41 AS Decimal(8, 2)), 5, N'English', 2010, N'9780099549482', N'0099549484', N'ROMANCE', N'to-kill-a-mockingbird-400x400-imadat2amn7wzuqv.jpeg', N'Atticus Finch lives in the fictional town of Maycomb in Alabama and as it is with the Deep South, the southern traditions of relations in race and gender are at the center of this masterpiece. His daughter, Scout is the narrator of the story and she lives with her widowed father and brother. To Kill A Mockingbird first explores the customs of the South, laying down all the quirks and foibles of the neighbors and people that Scout interacts with through her childhood days. The story of how her brother Jem injured his arm at the elbow is what starts off Scott’s reminiscing journey. This leads them to point out that it was the Ewells who set off the entire string of events that brought about the unsavory incident. And this is what is at the heart of the novel. The narrative that is so delicately handled by Lee is insightful and intuitive. Atticus is appointed by the court to defend a black man, Tom Robinson who has been accused of raping a white girl, Mayella. However the town doesn’t need a trial since they are steeped in prejudice against the coloured people and to them, Robinson is guilty of the crime. However, Atticus defends Tom to the best of his ability that turns the residents of this otherwise sleepy town against him and his family members. For the most part, the townspeople engage in hurling insults at the middle-aged man, which is unacceptable to the sprightly Scout. She along with her brother and their friend, Dill manage to disperse the mob of people but the situation grows worse.  Will Tom Robinson serve time for a crime he did not commit and will Scout lose her love for the South as she had before? A poignantly simple tale of losing innocence and more to the law of society, To Kill a Mockingbird does more than just enlighten people.')
+GO
+INSERT [dbo].[tblBook] ([Id], [Name], [AuthorName], [PublisherName], [Price], [Discount], [Rating], [Language], [PublicationYear], [ISBN13], [ISBN10], [Category], [Image], [Details]) VALUES (16, N'Midnight''s Children', N'Salman Rushdie', N'Vintage', CAST(499.00 AS Decimal(8, 2)), CAST(0.49 AS Decimal(8, 2)), 4, N'English', 2012, N'9780099582076', N'0099582074', N'CLASSICS', N'midnight-s-children-400x400-imadjsauh2gvkhut.jpeg', N'In Midnight’s Children, Saleem, the protagonist, has been endowed with telepathic powers as a result of the unusual time that he was born, and these powers allow him to connect with one thousand other such children who were born at that hour. Besides Saleem, the readers are introduced to other characters as well, two of them being Shiva and Parvati, who are also endowed with mysterious powers as a result of being born at that particular time in India’s history. Saleem assembles all of these characters telepathically, and they attempt to understand the relevance of their gift.  The story is based on actual historical facts as well as fiction, and provides the readers with a great deal of insight into the lives of people who lived during the Partition of India. Midnight’s Children highlights the plight of the people and the problems faced by the leaders as well.')
+GO
+SET IDENTITY_INSERT [dbo].[tblBook] OFF
+GO
+USE [master]
+GO
+ALTER DATABASE [GenericCrudDemoDB] SET  READ_WRITE 
+GO
