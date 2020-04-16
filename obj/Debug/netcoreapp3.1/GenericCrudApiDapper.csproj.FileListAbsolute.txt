@@ -94,3 +94,4 @@ C:\Users\MikeB\source\repo_0420\GenericCrudApiDapper\GenericCrudApiDapper\obj\De
 C:\Users\MikeB\source\repo_0420\GenericCrudApiDapper\GenericCrudApiDapper\obj\Debug\netcoreapp3.1\staticwebassets\GenericCrudApiDapper.StaticWebAssets.xml
 C:\Users\MikeB\source\repo_0420\GenericCrudApiDapper\GenericCrudApiDapper\obj\Debug\netcoreapp3.1\GenericCrudApiDapper.dll
 C:\Users\MikeB\source\repo_0420\GenericCrudApiDapper\GenericCrudApiDapper\obj\Debug\netcoreapp3.1\GenericCrudApiDapper.pdb
+C:\Users\MikeB\source\repo_0420\GenericCrudApiDapper\GenericCrudApiDapper\obj\Debug\netcoreapp3.1\GenericCrudApiDapper.csprojAssemblyReference.cache

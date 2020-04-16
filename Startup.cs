@@ -32,7 +32,6 @@ namespace GenericCrudApiDapper
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-      
             // Add CORS policy
             services.AddCors(options =>
             {
@@ -50,39 +49,15 @@ namespace GenericCrudApiDapper
                 options.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
             });
 
-            //services.AddMvc().AddNewtonsoftJson();
-
-            //   .   (options => options.JsonSerializerOptions.PropertyNamingPolicy = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver());
-
-            //services.AddMvc()
-            //     .AddJsonOptions(options =>
-            //     {
-            //         options.JsonSerializerOptions.PropertyNamingPolicy =   SerializerSettings.ContractResolver = new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver();
-            //     });
-
-            //services.AddControllers()
-            //      .AddJsonOptions(options =>
-            //       {
-            //           options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
-            //       });
-            // keeps the casing to that of the model when serializing to json (default is converting to camelCase)
             services.AddMvc()
                 .AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase);
-           
-    //        services.AddMvc()
-    //.AddJsonOptions(options => options.JsonSerializerOptions.PropertyNamingPolicy =  new System.Text.Json.JsonNamingPolicy  new Newtonsoft.Json.Serialization.CamelCasePropertyNamesContractResolver());
-
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Dapper Generic Crud API", Version = "v1" });
             });
 
-           
             services.AddTransient<GenericService>();
-
-            //services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"data source=s10.winhost.com;initial catalog=DB_14781_schools;persist security info=True;user id=DB_14781_schools_user;password=microwave1;MultipleActiveResultSets=True"));
-           // services.AddDbContext<AppDbContext>(opt => opt.UseSqlServer(@"Data Source=(local);Initial Catalog=GenericCrudDemoDB;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"));
 
             var connectionString = Configuration["ConnectionStrings:DefaultConnection"];
             services.AddDbContext<AppDbContext>(x => x.UseSqlServer(connectionString));
@@ -99,9 +74,6 @@ namespace GenericCrudApiDapper
             }
             // Enable middleware to serve generated Swagger as a JSON endpoint.
             app.UseSwagger();
-
-            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.),
-            // specifying the Swagger JSON endpoint.
             app.UseSwaggerUI(c =>
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Dapper Generic Crud API");

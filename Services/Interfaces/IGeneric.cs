@@ -8,12 +8,9 @@ namespace GenericCrudApiDapper.Services.Interfaces
 {
     public interface IGenericService
     {
-
-        Task<IEnumerable<dynamic>> getItemsAsync(string entName);
-        Task<dynamic> getItemsSQLAsync(APISend values);
-        dynamic updateItem(APISendSave values);
-        dynamic deleteItem(APISendSave values);
-
-
+        Task<IEnumerable<dynamic>> GetItemsAsync(string entName);
+        Task<dynamic> GetItemsSQLAsync(APISend values);
+        dynamic UpdateItem(APISendSave values);
+        dynamic DeleteItem(APISendSave values);
     }
 }

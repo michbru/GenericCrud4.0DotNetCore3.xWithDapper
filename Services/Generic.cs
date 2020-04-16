@@ -26,7 +26,7 @@ namespace GenericCrudApiDapper.Services
            this._configuration = configuration;
         }
 
-        public async Task<IEnumerable<dynamic>> getItemsAsync(string entName)
+        public async Task<IEnumerable<dynamic>> GetItemsAsync(string entName)
            //   public dynamic getItems(string entName)
         {
 
@@ -40,7 +40,7 @@ namespace GenericCrudApiDapper.Services
             }
         }
 
-        public async Task<dynamic> getItemsSQLAsync(APISend values)
+        public async Task<dynamic> GetItemsSQLAsync(APISend values)
 
         {
             string _entity = values.p_entity;
@@ -65,7 +65,7 @@ namespace GenericCrudApiDapper.Services
             }
         }
 
-        public dynamic updateItem(APISendSave values)
+        public dynamic UpdateItem(APISendSave values)
         {
 
             var updateRecord = values.record;
@@ -107,7 +107,7 @@ namespace GenericCrudApiDapper.Services
         }
 
 
-        public dynamic deleteItem(APISendSave values)
+        public dynamic DeleteItem(APISendSave values)
         {
             var updateRecord = values.record;
 
