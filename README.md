@@ -1,7 +1,8 @@
-# .netcoreGenericCrudSampleProject
+# GenericCrudApiDapper
 Generic CRUD with Dapper Web API
 
 See working application at https://gencrudangularapp.azurewebsites.net
+(Please be patient on page load. Being a little thrifty with Azure Resources/$$$. )
 
 Requirements to Run Locally:
 -Visual Studio .NET Core 3.1
