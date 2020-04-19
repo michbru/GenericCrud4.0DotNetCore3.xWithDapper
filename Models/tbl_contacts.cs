@@ -10,6 +10,7 @@ namespace GenericCrudApiDapper.Models
     {
         [Key]
         public int id { get; set; }
+        [Required]
         public string name { get; set; }
         public string email { get; set; }
         public string phone { get; set; }

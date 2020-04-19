@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Cors;
 using GenericCrudApiDapper.Services;
 using GenericCrudApiDapper.Models;
+using System.Net.Http;
+using System.Net;
 
 namespace GenericCrudApiDapper.Controllers
 {
@@ -41,8 +43,18 @@ namespace GenericCrudApiDapper.Controllers
         public dynamic UpdateItem(APISendSave data)
         {
 
-            var gen = _genericService.UpdateItem(data);
-            return gen; 
+            try
+            {
+                var gen = _genericService.UpdateItem(data);
+                return gen;
+            }
+            catch(Exception ex)
+            {
+                return BadRequest(ex.Message);
+
+            }
+
+
   
         }
 

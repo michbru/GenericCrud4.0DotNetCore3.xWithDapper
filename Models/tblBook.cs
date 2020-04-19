@@ -13,6 +13,8 @@ namespace GenericCrudApiDapper.Models
         public string Name { get; set; }
         public string AuthorName { get; set; }
         public string PublisherName { get; set; }
+
+        [Required]
         public Nullable<decimal> Price { get; set; }
         public Nullable<decimal> Discount { get; set; }
         public Nullable<int> Rating { get; set; }

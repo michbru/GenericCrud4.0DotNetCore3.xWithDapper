@@ -11,6 +11,7 @@ using GenericCrudApiDapper.Models;
 using GenericCrudApiDapper.Services.Interfaces;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using System.ComponentModel.DataAnnotations;
 
 namespace GenericCrudApiDapper.Services
 {
@@ -72,10 +73,9 @@ namespace GenericCrudApiDapper.Services
             var updateRecordId = System.Convert.ToInt32(values.p_recId);
 
             string _entity = values.p_entity;
-
             var ctx = this._appDbContext;
 
-            //get entity stub
+            //get entity Info
             var assembly = Assembly.GetExecutingAssembly();
             Type type = ctx.GetType().Assembly.GetExportedTypes().FirstOrDefault(t => t.Name == _entity);
             var entityStub = Activator.CreateInstance(type);
@@ -83,17 +83,57 @@ namespace GenericCrudApiDapper.Services
             //map posted dynamic record to entity stub
             dynamic typedEntityRecord = DbContextExtensions.GetUpdateAddObject(updateRecord, entityStub);
 
-            //refernce to dbcontext with entity
+            //Do Validation
+            var validation = new ModelValidation();
+            var validationContext = new ValidationContext(typedEntityRecord);
+            var validationErrors = validation.ValidateModelAndCustomValidation(typedEntityRecord, validationContext, type);
+
+            if (validationErrors.Count > 0)
+            {
+                var t = validationErrors[0].ErrorMessage;
+                throw new Exception(t);
+            }
+
+
+            // validate Data Annotations in model class
+            //var validationErrors = validation.ValidateModel(typedEntityRecord);
+            //if (validationErrors.Count > 0)
+            //{
+            //    var t = validationErrors[0].ErrorMessage;
+            //    throw new Exception(t);
+            //}
+
+            //// validate any Custom validation scenarios in optional Validate method
+            //if (type.GetMethod("Validate") != null)
+            //{
+            //    validationErrors = validation.ValidateModelCustom(typedEntityRecord);
+            //    if (validationErrors.Count > 0)
+            //    {
+            //        var t = validationErrors[0].ErrorMessage;
+            //        throw new Exception(t);
+            //    }
+
+            //}
+                //validation.ValidateModelCustom(typedEntityRecord);
+
+                //validationErrors = typedEntityRecord.Validate(validationContext);
+                //if (validationErrors.Count > 0)
+                //{
+                //    var t = validationErrors[0].ErrorMessage;
+                //    throw new Exception(t);
+                //    //return t;
+                //}
+          //  }
+
             var contextWithEntity = DbContextExtensions.GetEntityContextByEntityName(this._appDbContext, _entity);
 
             dynamic updateRecReturn;
             if (values.p_recId == "0")
-            {
+            {    //do add new
                 updateRecReturn = contextWithEntity.Add(typedEntityRecord);
-
             }
             else
-            {
+            {   //do update
                 updateRecReturn = contextWithEntity.Update(typedEntityRecord);
             }
 
@@ -122,6 +162,16 @@ namespace GenericCrudApiDapper.Services
                 return updateRecord;
             }
         }
+
+
+
+        //private List<ValidationResult> ValidateModel(object model)
+        //{
+        //    var validationResults = new List<ValidationResult>();
+        //    var ctx = new ValidationContext(model, null, null);
+        //    Validator.TryValidateObject(model, ctx, validationResults, true);
+        //    return validationResults;
+        //}
 
     }
 }
